@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.johnfneto.newsexercise.MainActivity;
 import com.johnfneto.newsexercise.R;
 import com.johnfneto.newsexercise.models.Items;
 import com.squareup.picasso.Picasso;
@@ -62,9 +63,14 @@ public class ItemAdapter extends BaseAdapter {
         title.setText(itemsList.get(position).getTitle());
         description.setText(itemsList.get(position).getDescription());
 
+        int w = MainActivity.width / 5;
+
+
         if (itemsList.get(position).getImageId() != 0) {
             image.setVisibility(View.VISIBLE);
-            Picasso.with(context).load(itemsList.get(position).getImageId()).into(image);
+            //Picasso.with(context).load(itemsList.get(position).getImageId()).into(image);
+            Picasso.with(context).load(itemsList.get(position).getImageId()).resize(w, 0).into(image);
+
         }
         else
             image.setVisibility(View.GONE);
