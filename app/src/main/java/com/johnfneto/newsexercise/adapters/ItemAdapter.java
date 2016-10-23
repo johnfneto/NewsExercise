@@ -62,7 +62,13 @@ public class ItemAdapter extends BaseAdapter {
         title.setText(itemsList.get(position).getTitle());
         description.setText(itemsList.get(position).getDescription());
 
-        Picasso.with(context).load(itemsList.get(position).getImage()).into(image);
+        if (itemsList.get(position).getImageId() != 0) {
+            image.setVisibility(View.VISIBLE);
+            Picasso.with(context).load(itemsList.get(position).getImageId()).into(image);
+        }
+        else
+            image.setVisibility(View.GONE);
+
 
         return vi;
     }
