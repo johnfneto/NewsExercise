@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
 import android.widget.ListView;
 import com.johnfneto.newsexercise.adapters.ItemAdapter;
+import com.johnfneto.newsexercise.controllers.NetworkController;
 import com.johnfneto.newsexercise.models.Items;
 
 import java.util.ArrayList;
@@ -43,5 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         itemAdapter = new ItemAdapter(this, itemsList);
         listView.setAdapter(itemAdapter);
+
+
+        NetworkController.getFeed();
+
     }
 }
