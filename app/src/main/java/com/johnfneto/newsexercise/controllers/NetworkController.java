@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.johnfneto.newsexercise.models.Items;
+import com.johnfneto.newsexercise.views.MainActivity;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -24,12 +25,19 @@ public class NetworkController {
     private static final String url = "https://dl.dropboxusercontent.com/u/746330/facts.json";
 
     private static NetworkController objNetworkController;
+    private static MainActivity mActivity;
+    private static MainActivity.TaskViewManager mDelegate;
 
 
     public static NetworkController getInstance() {
         if (objNetworkController == null) {
             objNetworkController = new NetworkController(); }
         return objNetworkController;
+    }
+
+    public static void initialize(MainActivity ctx, MainActivity.TaskViewManager delegate) {
+        mActivity = ctx;
+        mDelegate = delegate;
     }
 
     public static void getFeed() {

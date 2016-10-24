@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.johnfneto.newsexercise.MainActivity;
+import com.johnfneto.newsexercise.views.MainActivity;
 import com.johnfneto.newsexercise.R;
 import com.johnfneto.newsexercise.models.Items;
 import com.squareup.picasso.Picasso;
