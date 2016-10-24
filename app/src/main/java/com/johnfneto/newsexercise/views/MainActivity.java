@@ -1,11 +1,14 @@
-package com.johnfneto.newsexercise;
+package com.johnfneto.newsexercise.views;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.johnfneto.newsexercise.R;
 import com.johnfneto.newsexercise.adapters.ItemAdapter;
 import com.johnfneto.newsexercise.controllers.NetworkController;
 import com.johnfneto.newsexercise.models.Items;
@@ -25,6 +28,21 @@ public class MainActivity extends AppCompatActivity {
 
     public static int width;
 
+    public TaskViewManager delegate;
+
+    public interface TaskViewManager {
+        //Through this interface the event logic is
+        //passed off to the ViewModel.
+        void registerAdapter(ListView listView, ListAdapter listAdapter);
+        void registerActionBar(ActionBar actionBar);
+        void registerSwipeRefreshLayout(SwipeRefreshLayout mSwipeRefreshLayout);
+
+        void notifyAdapter();
+
+        void upDateList(List<Items.Item> itemsList);
+        void upDateActionBarTitle(String title);
+        void closeSwipeRefresh();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
