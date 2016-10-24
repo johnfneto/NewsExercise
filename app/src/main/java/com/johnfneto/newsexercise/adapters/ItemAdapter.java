@@ -1,6 +1,8 @@
 package com.johnfneto.newsexercise.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,31 +53,54 @@ public class ItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View vi=convertView;
-        if (convertView == null) {
-            vi = inflater.inflate(R.layout.list_item, null);
+        ViewHolder viewHolder;
+
+        View vi = convertView;
+
+        if (vi == null) {
+            // inflate the layout
+            //LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+            vi = inflater.inflate(R.layout.list_item, parent, false);
+
+            // set up the ViewHolder
+            viewHolder = new ViewHolder();
+            viewHolder.title = (TextView) vi.findViewById(R.id.title);
+            viewHolder.description = (TextView) vi.findViewById(R.id.description);
+            viewHolder.image = (ImageView) vi.findViewById(R.id.image);
+
+            // store the holder with the view.
+            vi.setTag(viewHolder);
         }
-        TextView title = (TextView) vi.findViewById(R.id.title);
-        TextView description = (TextView) vi.findViewById(R.id.description);
-        ImageView image = (ImageView) vi.findViewById(R.id.image);
+        else {
+            // instead of calling findViewById()
+            // used viewHolder
+            viewHolder = (ViewHolder) vi.getTag();
+        }
 
+        Items.Item item = itemsList.get(position);
 
-        title.setText(itemsList.get(position).getTitle());
-        description.setText(itemsList.get(position).getDescription());
+        viewHolder.title.setText(item.getTitle());
+        viewHolder.description.setText(item.getDescription());
+
+        Log.d(TAG, "item.getTitle :" + item.getTitle());
+
 
         int w = MainActivity.width / 5;
 
-
         if (itemsList.get(position).getImageId() != 0) {
-            image.setVisibility(View.VISIBLE);
+            viewHolder.image.setVisibility(View.VISIBLE);
             //Picasso.with(context).load(itemsList.get(position).getImageId()).into(image);
-            Picasso.with(context).load(itemsList.get(position).getImageId()).resize(w, 0).into(image);
-
+            Picasso.with(context).load(item.getImageId()).resize(w, 0).into(viewHolder.image);
         }
         else
-            image.setVisibility(View.GONE);
-
+            viewHolder.image.setVisibility(View.GONE);
 
         return vi;
+    }
+
+    static class ViewHolder {
+        TextView title;
+        TextView description;
+        ImageView image;
     }
 }

@@ -58,18 +58,18 @@ public class MainActivity extends AppCompatActivity {
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         listView = (ListView) findViewById(R.id.listView);
 
-        //Items.prepareDummyContent(itemsList);
+        Items.prepareDummyContent(itemsList);
 
-        itemAdapter = new ItemAdapter(this, itemsList);
+        itemAdapter = new ItemAdapter(MainActivity.this, itemsList);
         listView.setAdapter(itemAdapter);
 
 
         this.delegate = new ViewModel(MainActivity.this);
-        this.delegate.registerAdapter(listView, itemAdapter);
-        this.delegate.registerActionBar(actionBar);
+        //this.delegate.registerAdapter(listView, itemAdapter);
+        //this.delegate.registerActionBar(actionBar);
         this.delegate.registerSwipeRefreshLayout(mSwipeRefreshLayout);
 
-        NetworkController.getFeed();
+        //NetworkController.getFeed();
 
     }
 }
