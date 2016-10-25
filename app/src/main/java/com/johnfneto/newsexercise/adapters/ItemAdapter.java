@@ -1,7 +1,6 @@
 package com.johnfneto.newsexercise.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.johnfneto.newsexercise.views.MainActivity;
+import com.johnfneto.newsexercise.models.ImageUtils;
 import com.johnfneto.newsexercise.R;
 import com.johnfneto.newsexercise.models.Items;
 import com.squareup.picasso.Picasso;
@@ -80,7 +79,7 @@ public class ItemAdapter extends BaseAdapter {
         viewHolder.title.setText(item.getTitle());
         viewHolder.description.setText(item.getDescription());
 
-        int w = MainActivity.width / 5;
+        int w = ImageUtils.getImageWidth(context);
 
         Picasso.with(context).load(item.getImage()).resize(w, 0).into(viewHolder.image);
 

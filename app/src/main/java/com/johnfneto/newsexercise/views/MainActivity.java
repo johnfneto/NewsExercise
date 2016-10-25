@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.johnfneto.newsexercise.R;
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         this.delegate.registerAdapter(listView, itemAdapter);
         this.delegate.registerActionBar(actionBar);
         this.delegate.registerSwipeRefreshLayout(mSwipeRefreshLayout);
+
+        if (itemsList.size() == 0)
+            Log.d(TAG, "itemsList is empty");
 
         NetworkController.getFeed();
 
