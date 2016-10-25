@@ -4,7 +4,9 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.johnfneto.newsexercise.R;
 import com.johnfneto.newsexercise.models.Items;
+import com.johnfneto.newsexercise.view_models.ViewModel;
 import com.johnfneto.newsexercise.views.MainActivity;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -22,7 +24,7 @@ import java.io.IOException;
 public class NetworkController {
     protected static final String TAG = "NetworkController";
 
-    private static final String url = "https://dl.dropboxusercontent.com/u/746330/facts.json";
+    private static String url;
 
     private static NetworkController objNetworkController;
     private static MainActivity mActivity;
@@ -41,7 +43,7 @@ public class NetworkController {
     }
 
     public static void getFeed() {
-
+        new ViewModel(mActivity);
         new GetFeedsTask().execute(null, null, null);
     }
 
@@ -49,6 +51,7 @@ public class NetworkController {
         protected Items doInBackground(Void... params) {
 
             Items items = null;
+            url = mActivity.getString(R.string.url);
 
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -86,6 +89,10 @@ public class NetworkController {
                 Log.d(TAG, "item :" + item.toString());
             }
 
+            mDelegate.upDateActionBarTitle(items.getTitle());
+            mDelegate.upDateList(items.getRows());
+            mDelegate.notifyAdapter();
+            mDelegate.closeSwipeRefresh();
         }
     }
 }

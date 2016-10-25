@@ -1,6 +1,5 @@
 package com.johnfneto.newsexercise.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,7 +58,6 @@ public class ItemAdapter extends BaseAdapter {
 
         if (vi == null) {
             // inflate the layout
-            //LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             vi = inflater.inflate(R.layout.list_item, parent, false);
 
             // set up the ViewHolder
@@ -82,18 +80,9 @@ public class ItemAdapter extends BaseAdapter {
         viewHolder.title.setText(item.getTitle());
         viewHolder.description.setText(item.getDescription());
 
-        Log.d(TAG, "item.getTitle :" + item.getTitle());
-
-
         int w = MainActivity.width / 5;
 
-        if (itemsList.get(position).getImageId() != 0) {
-            viewHolder.image.setVisibility(View.VISIBLE);
-            //Picasso.with(context).load(itemsList.get(position).getImageId()).into(image);
-            Picasso.with(context).load(item.getImageId()).resize(w, 0).into(viewHolder.image);
-        }
-        else
-            viewHolder.image.setVisibility(View.GONE);
+        Picasso.with(context).load(item.getImage()).resize(w, 0).into(viewHolder.image);
 
         return vi;
     }
