@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         this.delegate.registerSwipeRefreshLayout(mSwipeRefreshLayout);
 
         if (itemsList.size() == 0) {
-            Log.d(TAG, "itemsList is empty");
+            //Log.d(TAG, "itemsList is empty");
 
             NetworkController.getFeed();
         }

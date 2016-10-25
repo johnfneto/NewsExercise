@@ -81,7 +81,7 @@ public class ViewModel  implements MainActivity.TaskViewManager  {
         for (Items.Item item : itemsList) {
 
             if (item.getTitle() == null && item.getDescription() == null && item.getImage() == null) {
-                Log.d(TAG, "item :" + i + " is empty");
+                //Log.d(TAG, "item :" + i + " is empty");
 
                 indexesToRemove.add(i);
             }
@@ -89,7 +89,7 @@ public class ViewModel  implements MainActivity.TaskViewManager  {
         }
 
         for (int j = 0; j < indexesToRemove.size(); j++) {
-            Log.d(TAG, "index To Remove :" + indexesToRemove.get(j));
+            //Log.d(TAG, "index To Remove :" + indexesToRemove.get(j));
 
             itemsList.remove((int) indexesToRemove.get(j));
         }

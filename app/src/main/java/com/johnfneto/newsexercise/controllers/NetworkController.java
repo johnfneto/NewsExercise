@@ -47,6 +47,8 @@ public class NetworkController {
         new ViewModel(mActivity);
         if (ConnectivityInfo.isConnectedToInternet(mActivity))
             new GetFeedsTask().execute(null, null, null);
+        else
+            mDelegate.closeSwipeRefresh();
     }
 
     private static class GetFeedsTask extends AsyncTask<Void, Integer, Items> {
@@ -87,9 +89,9 @@ public class NetworkController {
 
         protected void onPostExecute(Items items) {
 
-            for (Items.Item item : items.getRows()) {
+            /*for (Items.Item item : items.getRows()) {
                 Log.d(TAG, "item :" + item.toString());
-            }
+            }*/
 
             mDelegate.upDateActionBarTitle(items.getTitle());
             mDelegate.upDateList(items.getRows());

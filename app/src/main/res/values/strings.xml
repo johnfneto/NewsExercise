@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NewsExercise</string>
     <string name="url">https://dl.dropboxusercontent.com/u/746330/facts.json</string>
+    <string name="no_connection">No Internet connection currently available, please reconnect</string>
 </resources>
