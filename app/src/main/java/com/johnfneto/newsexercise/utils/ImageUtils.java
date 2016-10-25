@@ -1,4 +1,4 @@
-package com.johnfneto.newsexercise.models;
+package com.johnfneto.newsexercise.utils;
 
 import android.app.Activity;
 import android.content.Context;

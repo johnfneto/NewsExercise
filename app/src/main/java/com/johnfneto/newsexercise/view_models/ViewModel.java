@@ -55,12 +55,7 @@ public class ViewModel  implements MainActivity.TaskViewManager  {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (swipeRefreshLayout.isRefreshing()) {
-                    //mSwipeRefreshLayout.setRefreshing(false);
-                    Log.d(TAG, "isRefreshing");
-                }
-                else
-                    NetworkController.getFeed();
+
                 NetworkController.getFeed();
             }
 

@@ -70,10 +70,11 @@ public class MainActivity extends AppCompatActivity {
         this.delegate.registerActionBar(actionBar);
         this.delegate.registerSwipeRefreshLayout(mSwipeRefreshLayout);
 
-        if (itemsList.size() == 0)
+        if (itemsList.size() == 0) {
             Log.d(TAG, "itemsList is empty");
 
-        NetworkController.getFeed();
+            NetworkController.getFeed();
+        }
 
     }
 }

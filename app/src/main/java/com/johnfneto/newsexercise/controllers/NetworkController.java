@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.johnfneto.newsexercise.R;
 import com.johnfneto.newsexercise.models.Items;
+import com.johnfneto.newsexercise.utils.ConnectivityInfo;
 import com.johnfneto.newsexercise.view_models.ViewModel;
 import com.johnfneto.newsexercise.views.MainActivity;
 import com.squareup.okhttp.OkHttpClient;
@@ -44,7 +45,8 @@ public class NetworkController {
 
     public static void getFeed() {
         new ViewModel(mActivity);
-        new GetFeedsTask().execute(null, null, null);
+        if (ConnectivityInfo.isConnectedToInternet(mActivity))
+            new GetFeedsTask().execute(null, null, null);
     }
 
     private static class GetFeedsTask extends AsyncTask<Void, Integer, Items> {
