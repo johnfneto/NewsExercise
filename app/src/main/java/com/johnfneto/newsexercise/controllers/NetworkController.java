@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.johnfneto.newsexercise.R;
+import com.johnfneto.newsexercise.TaskViewManager;
 import com.johnfneto.newsexercise.models.Items;
 import com.johnfneto.newsexercise.utils.ConnectivityInfo;
 import com.johnfneto.newsexercise.view_models.ViewModel;
@@ -29,7 +30,7 @@ public class NetworkController {
 
     private static NetworkController objNetworkController;
     private static MainActivity mActivity;
-    private static MainActivity.TaskViewManager mDelegate;
+    private static TaskViewManager mDelegate;
 
 
     public static NetworkController getInstance() {
@@ -38,20 +39,20 @@ public class NetworkController {
         return objNetworkController;
     }
 
-    public static void initialize(MainActivity ctx, MainActivity.TaskViewManager delegate) {
+    public static void initialize(MainActivity ctx, TaskViewManager delegate) {
         mActivity = ctx;
         mDelegate = delegate;
     }
 
-    public static void getFeed() {
-        new ViewModel(mActivity);
+    public static void loadFeed() {
+        //new ViewModel(mActivity);
         if (ConnectivityInfo.isConnectedToInternet(mActivity))
-            new GetFeedsTask().execute(null, null, null);
+            new LoadFeedTask().execute();
         else
             mDelegate.closeSwipeRefresh();
     }
 
-    private static class GetFeedsTask extends AsyncTask<Void, Integer, Items> {
+    private static class LoadFeedTask extends AsyncTask<Void, Integer, Items> {
         protected Items doInBackground(Void... params) {
 
             Items items = null;

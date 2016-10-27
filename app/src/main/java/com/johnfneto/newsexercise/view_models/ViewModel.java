@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.johnfneto.newsexercise.TaskViewManager;
 import com.johnfneto.newsexercise.adapters.ItemAdapter;
 import com.johnfneto.newsexercise.controllers.NetworkController;
 import com.johnfneto.newsexercise.models.Items;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by johnneto on 24/10/16.
  */
 
-public class ViewModel  implements MainActivity.TaskViewManager  {
+public class ViewModel  implements TaskViewManager {
     private static final String TAG = "ViewModel";
 
     private MainActivity mActivity;
@@ -33,16 +34,28 @@ public class ViewModel  implements MainActivity.TaskViewManager  {
     public ViewModel(MainActivity mActivity) {
         this.mActivity = mActivity;
 
-        NetworkController.initialize(mActivity, mActivity.delegate);
-        networkController = NetworkController.getInstance();
+
     }
 
     @Override
-    public void registerAdapter(ListView listView, ItemAdapter itemAdapter) {
+    public void registerNetworkController() {
+        NetworkController.initialize(mActivity, mActivity.delegate);
+        networkController = NetworkController.getInstance();
+
+        if (itemsList.size() == 0) {
+            swipeRefreshLayout.setEnabled(true);
+            NetworkController.loadFeed();
+        }
+    }
+
+
+
+    @Override
+    public void registerAdapter(ListView listView) {
         itemAdapter = new ItemAdapter(mActivity, itemsList);
         listView.setAdapter(itemAdapter);
-        this.itemAdapter = itemAdapter;
     }
+
 
     @Override
     public void registerActionBar(ActionBar actionBar) {
@@ -56,11 +69,13 @@ public class ViewModel  implements MainActivity.TaskViewManager  {
             @Override
             public void onRefresh() {
 
-                NetworkController.getFeed();
+                NetworkController.loadFeed();
             }
 
         });
     }
+
+
 
     @Override
     public void notifyAdapter() {
@@ -75,23 +90,14 @@ public class ViewModel  implements MainActivity.TaskViewManager  {
     }
 
     private void removeEmptyItems(List<Items.Item> itemsList) {
-        List<Integer> indexesToRemove = new ArrayList<>();
 
-        int i = 0;
-        for (Items.Item item : itemsList) {
+        for (int j = itemsList.size() - 1; j >= 0; j--) {
+            Log.d(TAG, "index :" + j );
+            if (itemsList.get(j).getTitle() == null && itemsList.get(j).getDescription() == null && itemsList.get(j).getImage() == null) {
+                Log.d(TAG, "item :" + j + " is empty");
 
-            if (item.getTitle() == null && item.getDescription() == null && item.getImage() == null) {
-                //Log.d(TAG, "item :" + i + " is empty");
-
-                indexesToRemove.add(i);
+                itemsList.remove(j);
             }
-            i++;
-        }
-
-        for (int j = 0; j < indexesToRemove.size(); j++) {
-            //Log.d(TAG, "index To Remove :" + indexesToRemove.get(j));
-
-            itemsList.remove((int) indexesToRemove.get(j));
         }
     }
 
