@@ -9,6 +9,7 @@ import com.johnfneto.newsexercise.TaskViewManager;
 import com.johnfneto.newsexercise.adapters.ItemAdapter;
 import com.johnfneto.newsexercise.controllers.NetworkController;
 import com.johnfneto.newsexercise.models.Items;
+import com.johnfneto.newsexercise.utils.UiUtils;
 import com.johnfneto.newsexercise.views.MainActivity;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class ViewModel  implements TaskViewManager {
         networkController = NetworkController.getInstance();
 
         if (itemsList.size() == 0) {
-            swipeRefreshLayout.setEnabled(true);
+            UiUtils.setRefreshing(swipeRefreshLayout, true);
             NetworkController.loadFeed();
         }
     }
@@ -92,10 +93,7 @@ public class ViewModel  implements TaskViewManager {
     private void removeEmptyItems(List<Items.Item> itemsList) {
 
         for (int j = itemsList.size() - 1; j >= 0; j--) {
-            Log.d(TAG, "index :" + j );
             if (itemsList.get(j).getTitle() == null && itemsList.get(j).getDescription() == null && itemsList.get(j).getImage() == null) {
-                Log.d(TAG, "item :" + j + " is empty");
-
                 itemsList.remove(j);
             }
         }
